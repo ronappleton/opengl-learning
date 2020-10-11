@@ -3,12 +3,7 @@ package renderer;
 import org.joml.*;
 import org.lwjgl.BufferUtils;
 import util.ShaderUtils;
-import util.StringUtils;
-
-import java.io.IOException;
 import java.nio.FloatBuffer;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import static org.lwjgl.opengl.GL11.GL_FALSE;
 import static org.lwjgl.opengl.GL20.*;
@@ -84,11 +79,10 @@ public class Shader {
 
     public void use() {
         if (!beingUsed) {
-            return;
+            // Bind shader program
+            glUseProgram(shaderProgramId);
+            beingUsed = true;
         }
-        // Bind shader program
-        glUseProgram(shaderProgramId);
-        beingUsed = true;
     }
 
     public void detach() {
