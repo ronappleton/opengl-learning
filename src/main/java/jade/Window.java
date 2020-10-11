@@ -22,6 +22,9 @@ public class Window {
 
     private static Scene currentScene;
 
+    private boolean trackUpdates = false;
+    private int updatesDone = 0;
+
     private Window() {
         this.width = 1920;
         this.height = 1080;
@@ -132,7 +135,11 @@ public class Window {
             glClear(GL_COLOR_BUFFER_BIT);
 
             if (dt >= 0) {
+                if (trackUpdates && updatesDone % 100 == 0) {
+                    System.out.println("FPS: " + (1.0f / dt));
+                }
                 currentScene.update(dt);
+                updatesDone++;
             }
 
             glfwSwapBuffers(glfwWindow);

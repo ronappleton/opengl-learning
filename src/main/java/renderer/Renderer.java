@@ -2,7 +2,6 @@ package renderer;
 
 import components.SpriteRenderer;
 import jade.GameObject;
-import org.lwjgl.system.CallbackI;
 
 import java.util.ArrayList;
 import java.util.List;
