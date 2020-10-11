@@ -45,16 +45,16 @@ public class Texture {
             assert false : "Error: (Texture) Unknown number of colour channels in texture";
         }
 
-        int CHANNELS = channels.get(0) == 3 ? GL_RGB : GL_RGBA;
+        int COLOR_CHANNELS = channels.get(0) == 3 ? GL_RGB : GL_RGBA;
 
         glTexImage2D(
                 GL_TEXTURE_2D,
                 0,
-                CHANNELS,
+                COLOR_CHANNELS,
                 width.get(0),
                 height.get(0),
                 0,
-                CHANNELS,
+                COLOR_CHANNELS,
                 GL_UNSIGNED_BYTE,
                 image
         );
