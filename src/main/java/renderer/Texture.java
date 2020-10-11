@@ -35,21 +35,29 @@ public class Texture {
 
         ByteBuffer image = stbi_load(filepath, width, height, channels, 0);
 
-        if (image != null) {
-            glTexImage2D(
-                    GL_TEXTURE_2D,
-                    0,
-                    GL_RGBA,
-                    width.get(0),
-                    height.get(0),
-                    0,
-                    GL_RGBA,
-                    GL_UNSIGNED_BYTE,
-                    image
-            );
-        } else {
+        if (image == null) {
             assert false : "Error: (Texture) Could not load image '" + filepath + "'";
         }
+
+        if (channels.get(0) != 3 && channels.get(0) != 4) {
+            // We don't know how to handle these channels
+            stbi_image_free(image);
+            assert false : "Error: (Texture) Unknown number of colour channels in texture";
+        }
+
+        int CHANNELS = channels.get(0) == 3 ? GL_RGB : GL_RGBA;
+
+        glTexImage2D(
+                GL_TEXTURE_2D,
+                0,
+                CHANNELS,
+                width.get(0),
+                height.get(0),
+                0,
+                CHANNELS,
+                GL_UNSIGNED_BYTE,
+                image
+        );
 
         // stbi accesses memory via c so release that memory to prevent leaks!! Important
         stbi_image_free(image);
@@ -61,5 +69,9 @@ public class Texture {
 
     public void unbind() {
         glBindTexture(GL_TEXTURE_2D, 0);
+    }
+
+    public int getId() {
+        return texId;
     }
 }
