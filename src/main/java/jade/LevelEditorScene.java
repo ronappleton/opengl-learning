@@ -1,11 +1,14 @@
 package jade;
 
+import components.FontRenderer;
+import components.SpriteRenderer;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 import renderer.Shader;
 import renderer.Texture;
 import util.Time;
 
+import java.awt.*;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.Vector;
@@ -117,6 +120,10 @@ public class LevelEditorScene extends Scene {
         glBindVertexArray(0);
 
         defaultShader.detach();
+
+        for (GameObject go : this.gameObjects) {
+            go.update(dt);
+        }
     }
 
 }

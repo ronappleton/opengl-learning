@@ -37,16 +37,17 @@ public class Window {
             case LEVEL_EDITOR_SCENE:
                 currentScene = new LevelEditorScene();
                 System.out.println("Initialising LEVEL_EDITOR_SCENE");
-                currentScene.init();
                 break;
             case LEVEL_SCENE:
                 currentScene = new LevelScene();
-                currentScene.init();
                 break;
             default:
                 assert false : "Unknown Scene: " + newScene;
                 break;
         }
+
+        currentScene.init();
+        currentScene.start();
     }
 
     public static Window get() {
