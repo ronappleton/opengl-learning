@@ -11,6 +11,8 @@ import static org.lwjgl.stb.STBImage.*;
 public class Texture {
     private String filepath;
     private int texId;
+    private int width;
+    private int height;
 
     public Texture(String filepath) {
         this.filepath = filepath;
@@ -37,6 +39,9 @@ public class Texture {
         if (image == null) {
             assert false : "Error: (Texture) Could not load image '" + filepath + "'";
         }
+
+        this.width = width.get(0);
+        this.height = height.get(0);
 
         if (channels.get(0) != 3 && channels.get(0) != 4) {
             // We don't know how to handle these channels
@@ -72,5 +77,13 @@ public class Texture {
 
     public int getId() {
         return texId;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }
