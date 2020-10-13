@@ -95,9 +95,9 @@ public class RenderBatch {
             if (!textures.contains(spr.getTexture())) {
                 this.textures.add(spr.getTexture());
             }
-        } // Handle new batches
+        }
 
-        loadVertexIndices(index);
+        loadVertexProperties(index);
 
         if (numSprites >= maxBatchSize) {
             this.hasRoom = false;
@@ -105,9 +105,21 @@ public class RenderBatch {
     }
 
     public void render() {
-        // For now we will rebuffer all data for every frame.
-        glBindBuffer(GL_ARRAY_BUFFER, vboId);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
+        boolean rebufferData = false;
+        for (int i = 0; i < numSprites; i++) {
+            SpriteRenderer spr = sprites[i];
+            if (spr.isDirty()) {
+                loadVertexProperties(i);
+                spr.setClean();
+                rebufferData = true;
+            }
+        }
+
+        if (rebufferData) {
+            glBindBuffer(GL_ARRAY_BUFFER, vboId);
+            glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
+        }
+
 
         // Upload data
         shader.use();
@@ -135,7 +147,7 @@ public class RenderBatch {
         shader.detach();
     }
 
-    private void loadVertexIndices(int index) {
+    private void loadVertexProperties(int index) {
         SpriteRenderer sprite = this.sprites[index];
 
         // Find offset within array (4 vertices per sprite)

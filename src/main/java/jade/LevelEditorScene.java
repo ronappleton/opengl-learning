@@ -13,6 +13,8 @@ public class LevelEditorScene extends Scene {
         System.out.println("Inside Level Editor Scene!");
     }
 
+    private GameObject go;
+
     @Override
     public void init() {
         loadResources();
@@ -20,7 +22,7 @@ public class LevelEditorScene extends Scene {
 
         Spritesheet sprites = AssetPool.getSpriteSheet("assets/images/spritesheet.png");
 
-        GameObject go = new GameObject("Object 1", new Transform(new Vector2f(100,100), new Vector2f(256,256)));
+        go = new GameObject("Object 1", new Transform(new Vector2f(100,100), new Vector2f(256,256)));
         go.addComponent(new SpriteRenderer(sprites.getSprite(0)));
         this.addGameObjectToScene(go);
 
@@ -46,6 +48,7 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void update(float dt) {
+
         for (GameObject go : this.gameObjects) {
             go.update(dt);
         }
