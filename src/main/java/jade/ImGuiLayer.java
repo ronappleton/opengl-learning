@@ -36,7 +36,7 @@ public class ImGuiLayer {
         // Initialize ImGuiIO config
         final ImGuiIO io = ImGui.getIO();
 
-        io.setIniFilename(null); // We don't want to save .ini file
+        io.setIniFilename("imgui.ini"); // We don't want to save .ini file
         io.addConfigFlags(ImGuiConfigFlags.NavEnableKeyboard);  // Enable Keyboard Controls
         io.addConfigFlags(ImGuiConfigFlags.DockingEnable);      // Enable Docking
         io.addConfigFlags(ImGuiConfigFlags.ViewportsEnable);    // Enable Multi-Viewport / Platform Windows
@@ -50,38 +50,10 @@ public class ImGuiLayer {
         final ImFontConfig fontConfig = new ImFontConfig(); // Natively allocated object, should be explicitly destroyed
 
         // Glyphs could be added per-font as well as per config used globally like here
-        fontConfig.setGlyphRanges(fontAtlas.getGlyphRangesCyrillic());
+        fontConfig.setGlyphRanges(fontAtlas.getGlyphRangesDefault());
 
-        // Add a default font, which is 'ProggyClean.ttf, 13px'
-        fontAtlas.addFontDefault();
-
-        // Fonts merge example
-        fontConfig.setMergeMode(true); // When enabled, all fonts added with this config would be merged with the previously added font
         fontConfig.setPixelSnapH(true);
-
-        try {
-            fontAtlas.addFontFromMemoryTTF(AssetPool.getFont("assets/fonts/basis33.ttf"), 16, fontConfig);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        fontConfig.setMergeMode(false);
-        fontConfig.setPixelSnapH(false);
-
-        // Fonts from file/memory example
-        // We can add new fonts from the file system
-        fontAtlas.addFontFromFileTTF("assets/fonts/Righteous-Regular.ttf", 14, fontConfig);
-        fontAtlas.addFontFromFileTTF("assets/fonts/Righteous-Regular.ttf", 16, fontConfig);
-
-        // Or directly from the memory
-        try {
-            fontConfig.setName("Roboto-Regular.ttf, 14px"); // This name will be displayed in Style Editor
-            fontAtlas.addFontFromMemoryTTF(AssetPool.getFont("assets/fonts/Roboto-Regular.ttf"), 14, fontConfig);
-            fontConfig.setName("Roboto-Regular.ttf, 16px"); // We can apply a new config value every time we add a new font
-            fontAtlas.addFontFromMemoryTTF(AssetPool.getFont("assets/fonts/Roboto-Regular.ttf"), 16, fontConfig);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        fontAtlas.addFontFromFileTTF("assets/fonts/Roboto-Regular.ttf", 18, fontConfig);
 
 
         fontConfig.destroy(); // After all fonts were added we don't need this config more
@@ -107,11 +79,12 @@ public class ImGuiLayer {
         imGuiGl3.init("#version 330 core");
     }
 
-    public void update(float dt) {
+    public void update(float dt, Scene currentScene) {
         // Any Dear ImGui code SHOULD go between ImGui.newFrame()/ImGui.render() methods
         imGuiGlfw.newFrame();
         ImGui.newFrame();
 
+        currentScene.sceneImgui();
         ImGui.showDemoWindow();
 
         ImGui.render();
