@@ -16,7 +16,6 @@ public class Window {
     private long glfwWindow;
 
     public float r, g, b, a;
-    private boolean fadeToBlack = false;
 
     private static Window window = null;
 
@@ -41,7 +40,6 @@ public class Window {
         switch (newScene) {
             case LEVEL_EDITOR_SCENE:
                 currentScene = new LevelEditorScene();
-                System.out.println("Initialising LEVEL_EDITOR_SCENE");
                 break;
             case LEVEL_SCENE:
                 currentScene = new LevelScene();

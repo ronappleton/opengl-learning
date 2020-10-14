@@ -10,28 +10,33 @@ import util.AssetPool;
 
 public class LevelEditorScene extends Scene {
 
-    public LevelEditorScene() {
-        System.out.println("Inside Level Editor Scene!");
-    }
-
-    private GameObject go;
+    private GameObject obj1;
+    private Spritesheet sprites;
+    SpriteRenderer obj1Sprite;
 
     @Override
     public void init() {
         loadResources();
         this.camera = new Camera(new Vector2f());
 
-        Spritesheet sprites = AssetPool.getSpriteSheet("assets/images/spritesheet.png");
+        sprites = AssetPool.getSpritesheet("assets/images/spritesheet.png");
 
-        GameObject go2 = new GameObject("Object 2", new Transform(new Vector2f(400,100), new Vector2f(256,256)), -1);
-        go2.addComponent(new SpriteRenderer(new Sprite(AssetPool.getTexture("assets/images/blendImage1.png"))));
-        this.addGameObjectToScene(go2);
+        obj1 = new GameObject("Object 1", new Transform(new Vector2f(200, 100),
+                new Vector2f(256, 256)), 2);
+        obj1Sprite = new SpriteRenderer();
+        obj1Sprite.setColor(new Vector4f(1, 0, 0, 1));
+        obj1.addComponent(obj1Sprite);
+        this.addGameObjectToScene(obj1);
+        this.activeGameObject = obj1;
 
-
-        go = new GameObject("Object 1", new Transform(new Vector2f(100,100), new Vector2f(256,256)), 2);
-        go.addComponent(new SpriteRenderer(new Vector4f(1,0,0, 1)));
-        this.addGameObjectToScene(go);
-        this.activeGameObject = go;
+        GameObject obj2 = new GameObject("Object 2",
+                new Transform(new Vector2f(400, 100), new Vector2f(256, 256)), 3);
+        SpriteRenderer obj2SpriteRenderer = new SpriteRenderer();
+        Sprite obj2Sprite = new Sprite();
+        obj2Sprite.setTexture(AssetPool.getTexture("assets/images/blendImage2.png"));
+        obj2SpriteRenderer.setSprite(obj2Sprite);
+        obj2.addComponent(obj2SpriteRenderer);
+        this.addGameObjectToScene(obj2);
 
     }
 
@@ -40,18 +45,11 @@ public class LevelEditorScene extends Scene {
 
         AssetPool.addSpritesheet("assets/images/spritesheet.png",
                 new Spritesheet(AssetPool.getTexture("assets/images/spritesheet.png"),
-                        16,
-                        16,
-                        26,
-                        0
-                )
-        );
+                        16, 16, 26, 0));
     }
 
     @Override
     public void update(float dt) {
-        //go.transform.position.x += 10 * dt;
-
         for (GameObject go : this.gameObjects) {
             go.update(dt);
         }

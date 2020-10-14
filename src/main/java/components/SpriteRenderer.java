@@ -9,23 +9,23 @@ import renderer.Texture;
 
 
 public class SpriteRenderer extends Component {
-    private Vector4f color;
-    private Sprite sprite;
+    private Vector4f color = new Vector4f(1,1,1,1);
+    private Sprite sprite = new Sprite();
 
-    private Transform lastTransform;
-    private boolean isDirty = false;
+    private transient Transform lastTransform;
+    private transient boolean isDirty = false;
 
-    public SpriteRenderer(Vector4f color) {
-        this.color = color;
-        this.sprite = new Sprite(null);
-        isDirty = true;
-    }
-
-    public SpriteRenderer(Sprite sprite) {
-        this.sprite = sprite;
-        this.color = new Vector4f(1, 1, 1, 1);
-        isDirty = true;
-    }
+//    public SpriteRenderer(Vector4f color) {
+//        this.color = color;
+//        this.sprite = new Sprite(null);
+//        isDirty = true;
+//    }
+//
+//    public SpriteRenderer(Sprite sprite) {
+//        this.sprite = sprite;
+//        this.color = new Vector4f(1, 1, 1, 1);
+//        isDirty = true;
+//    }
 
     @Override
     public void start() {
@@ -69,8 +69,8 @@ public class SpriteRenderer extends Component {
     }
 
     public void setSprite(Sprite sprite) {
-        this.isDirty = true;
         this.sprite = sprite;
+        this.isDirty = true;
     }
 
     public boolean isDirty() {
