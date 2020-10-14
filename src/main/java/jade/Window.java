@@ -25,6 +25,8 @@ public class Window {
     private boolean trackUpdates = false;
     private int updatesDone = 0;
 
+    private ImGuiLayer imGuiLayer;
+
     private Window() {
         this.width = 1920;
         this.height = 1080;
@@ -121,6 +123,8 @@ public class Window {
         GL.createCapabilities();
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        this.imGuiLayer = new ImGuiLayer(glfwWindow);
+        this.imGuiLayer.setupImGui();
 
         Window.changeScene(util.Scene.LEVEL_EDITOR_SCENE);
     }
@@ -144,11 +148,28 @@ public class Window {
                 updatesDone++;
             }
 
+            this.imGuiLayer.update(dt);
             glfwSwapBuffers(glfwWindow);
 
             endTime = (float)glfwGetTime();
             dt = endTime - beginTime;
             beginTime = endTime;
         }
+    }
+
+    public static int getWidth() {
+        return get().width;
+    }
+
+    public static int getHeight() {
+        return get().height;
+    }
+
+    public static void setWidth(int newWidth) {
+        get().width = newWidth;
+    }
+
+    public static void setHeight(int newHeight) {
+        get().height = newHeight;
     }
 }

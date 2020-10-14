@@ -7,6 +7,7 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = 1.11
 
 repositories {
+    jcenter()
     mavenCentral()
 }
 
@@ -17,9 +18,14 @@ dependencies {
 project.ext.lwjglVersion = "3.2.3"
 project.ext.jomlVersion = "1.9.25"
 project.ext.lwjglNatives = "natives-macos"
+project.ext.imguiVersion = '1.78-1.3.0'
+project.ext.imguiNatives = "imgui-java-natives-macos"
 
 dependencies {
     implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+    implementation "io.imgui.java:imgui-java-binding:$imguiVersion"
+    implementation "io.imgui.java:imgui-java-lwjgl3:$imguiVersion"
+    runtimeOnly "io.imgui.java:$imguiNatives:$imguiVersion"
 
     implementation "org.lwjgl:lwjgl"
     implementation "org.lwjgl:lwjgl-assimp"
