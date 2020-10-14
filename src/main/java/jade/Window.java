@@ -119,6 +119,8 @@ public class Window {
         glfwShowWindow(glfwWindow);
 
         GL.createCapabilities();
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
         Window.changeScene(util.Scene.LEVEL_EDITOR_SCENE);
     }

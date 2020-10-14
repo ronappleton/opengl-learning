@@ -22,13 +22,14 @@ public class LevelEditorScene extends Scene {
 
         Spritesheet sprites = AssetPool.getSpriteSheet("assets/images/spritesheet.png");
 
-        go = new GameObject("Object 1", new Transform(new Vector2f(100,100), new Vector2f(256,256)));
-        go.addComponent(new SpriteRenderer(sprites.getSprite(0)));
-        this.addGameObjectToScene(go);
-
-        GameObject go2 = new GameObject("Object 2", new Transform(new Vector2f(400,100), new Vector2f(256,256)));
+        GameObject go2 = new GameObject("Object 2", new Transform(new Vector2f(400,100), new Vector2f(256,256)), -1);
         go2.addComponent(new SpriteRenderer(sprites.getSprite(21)));
         this.addGameObjectToScene(go2);
+
+
+        go = new GameObject("Object 1", new Transform(new Vector2f(250,100), new Vector2f(256,256)), 2);
+        go.addComponent(new SpriteRenderer(sprites.getSprite(0)));
+        this.addGameObjectToScene(go);
 
 
     }
@@ -48,6 +49,7 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void update(float dt) {
+        //go.transform.position.x += 10 * dt;
 
         for (GameObject go : this.gameObjects) {
             go.update(dt);
@@ -55,5 +57,6 @@ public class LevelEditorScene extends Scene {
 
         this.renderer.render();
     }
+
 
 }
