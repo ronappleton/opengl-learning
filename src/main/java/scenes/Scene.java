@@ -118,7 +118,7 @@ public abstract class Scene {
                 .create();
 
         try {
-            FileWriter writer = new FileWriter("level.txt");
+            FileWriter writer = new FileWriter("level.ini");
             writer.write(gson.toJson(this.gameObjects));
             writer.close();
         } catch (IOException e) {

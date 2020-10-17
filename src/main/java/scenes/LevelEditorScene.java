@@ -8,7 +8,9 @@ import jade.GameObject;
 import jade.Prefabs;
 import jade.Transform;
 import org.joml.Vector2f;
+import org.joml.Vector3f;
 import org.joml.Vector4f;
+import renderer.DebugDraw;
 import util.AssetPool;
 
 public class LevelEditorScene extends Scene {
@@ -53,6 +55,7 @@ public class LevelEditorScene extends Scene {
         if (this.activeGameObject == null && gameObjects.size() > 0) {
             this.activeGameObject = gameObjects.get(0);
         }
+
     }
 
     private void loadResources() {
@@ -64,6 +67,7 @@ public class LevelEditorScene extends Scene {
         AssetPool.getTexture("assets/images/blendImage2.png");
     }
 
+    float t = 0.0f;
     @Override
     public void update(float dt) {
         mouseControls.update(dt);
