@@ -3,7 +3,9 @@ package jade;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
-import renderer.Shader;
+import scenes.LevelEditorScene;
+import scenes.LevelScene;
+import scenes.Scene;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -20,9 +22,6 @@ public class Window {
     private static Window window = null;
 
     private static Scene currentScene;
-
-    private boolean trackUpdates = false;
-    private int updatesDone = 0;
 
     private ImGuiLayer imGuiLayer;
 
@@ -107,9 +106,14 @@ public class Window {
 
         // Attaching mouse call backs
         glfwSetCursorPosCallback(glfwWindow, MouseListener::mousePosCallback);
-        glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallBack);
+        glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
         glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
-        glfwSetKeyCallback(glfwWindow, KeyListener::keyCallBack);
+        glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
+        glfwSetWindowSizeCallback(glfwWindow, (w, newWidth, newHeight) -> {
+            Window.setWidth(newWidth);
+            Window.setHeight(newHeight);
+        });
+
 
         // Make OpenGL context current.
         glfwMakeContextCurrent(glfwWindow);
@@ -137,15 +141,12 @@ public class Window {
         while (!glfwWindowShouldClose(glfwWindow)) {
             // Poll events
             glfwPollEvents();
+
             glClearColor(r, g, b, a);
             glClear(GL_COLOR_BUFFER_BIT);
 
             if (dt >= 0) {
-                if (trackUpdates && updatesDone % 100 == 0) {
-                    System.out.println("FPS: " + (1.0f / dt));
-                }
                 currentScene.update(dt);
-                updatesDone++;
             }
 
             this.imGuiLayer.update(dt, currentScene);

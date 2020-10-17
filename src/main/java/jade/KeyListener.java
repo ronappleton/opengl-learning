@@ -19,7 +19,7 @@ public class KeyListener {
         return KeyListener.instance;
     }
 
-    public static void keyCallBack(long window, int key, int scancode, int action, int mods) {
+    public static void keyCallback(long window, int key, int scancode, int action, int mods) {
         if (action == GLFW_PRESS) {
             get().keyPressed[key] = true;
         } else if (action == GLFW_RELEASE) {
@@ -28,10 +28,6 @@ public class KeyListener {
     }
 
     public static boolean isKeyPressed(int keyCode) {
-        if (keyCode < get().keyPressed.length) {
-            return get().keyPressed[keyCode];
-        } else {
-            throw new IllegalArgumentException("Key pressed out of bounds.");
-        }
+        return get().keyPressed[keyCode];
     }
 }

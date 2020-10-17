@@ -73,8 +73,6 @@ public class Shader {
             System.out.println(glGetProgramInfoLog(shaderProgramId, len));
             assert false : "";
         }
-
-        System.out.println("Compiling and linking completed.");
     }
 
     public void use() {
