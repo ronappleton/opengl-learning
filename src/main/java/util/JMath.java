@@ -21,19 +21,19 @@ public class JMath {
         vec.y = yPrime;
     }
 
-    private static boolean compare(float x, float y, float epsilon) {
+    public static boolean compare(float x, float y, float epsilon) {
         return Math.abs(x - y) <= epsilon * Math.max(1.0f, Math.max(Math.abs(x), Math.abs(y)));
     }
 
-    private static boolean compare(Vector2f vec1, Vector2f vec2, float epsilon) {
+    public static boolean compare(Vector2f vec1, Vector2f vec2, float epsilon) {
         return compare(vec1.x, vec2.x, epsilon) && compare(vec1.y, vec2.y, epsilon);
     }
 
-    private static boolean compare(float x, float y) {
+    public static boolean compare(float x, float y) {
         return Math.abs(x - y) <= Float.MIN_VALUE * Math.max(1.0f, Math.max(Math.abs(x), Math.abs(y)));
     }
 
-    private static boolean compare(Vector2f vec1, Vector2f vec2) {
+    public static boolean compare(Vector2f vec1, Vector2f vec2) {
         return compare(vec1.x, vec2.x) && compare(vec1.y, vec2.y);
     }
 }
